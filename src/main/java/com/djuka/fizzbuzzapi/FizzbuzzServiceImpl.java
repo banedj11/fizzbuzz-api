@@ -23,18 +23,19 @@ public class FizzbuzzServiceImpl implements FizzbuzzService{
 
     @Override
     public String[] getAllOutputs() {
-        String[] allOutputs = new String[100];
-        for(int i = 1; i < allOutputs.length; i++) {
-            if(i % 3 == 0 && i % 5 == 0) {
+        String[] allOutputs = new String[99];
+        for(int i = 0; i <= allOutputs.length-1; i++) {
+            int n = i+1;
+            if(n % 3 == 0 && n % 5 == 0) {
                 allOutputs[i] = "fizzbuzz";
-            } else if(i % 3 == 0) {
+            } else if(n % 3 == 0) {
                 allOutputs[i] = "fizz";
-            } else if(i % 5 == 0) {
+            } else if(n % 5 == 0) {
                 allOutputs[i] = "buzz";
             } else {
-                allOutputs[i] = String.valueOf(i);
+                allOutputs[i] = String.valueOf(n);
             }
         }
-        return new String[0];
+        return allOutputs;
     }
 }

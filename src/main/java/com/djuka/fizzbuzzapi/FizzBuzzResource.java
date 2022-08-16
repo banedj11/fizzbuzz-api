@@ -21,7 +21,13 @@ public class FizzBuzzResource {
     }
 
     @GetMapping("/fizzbuzz")
-    public ResponseEntity fizzbuzz(@RequestParam @Positive(message = "Must be a number")  String entry) {
+    public ResponseEntity fizzbuzz(@RequestParam String entry) {
+        if(entry == null || entry.isEmpty()) {
+            return new ResponseEntity(fizzbuzzService.getAllOutputs(), HttpStatus.OK);
+        }
+        if(!entry.matches("[0-9]+")) {
+            throw new RuntimeException("Entry must be a number");
+        }
         FizzbuzzOutput output = fizzbuzzService.getOutput(entry);
         return new ResponseEntity<FizzbuzzOutput>(output, HttpStatus.OK);
     }
