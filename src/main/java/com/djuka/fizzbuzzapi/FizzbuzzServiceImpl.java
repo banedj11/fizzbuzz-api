@@ -24,7 +24,7 @@ public class FizzbuzzServiceImpl implements FizzbuzzService{
     @Override
     public String[] getAllOutputs() {
         String[] allOutputs = new String[99];
-        for(int i = 0; i <= allOutputs.length-1; i++) {
+        for(int i = 0; i < allOutputs.length; i++) {
             int n = i+1;
             if(n % 3 == 0 && n % 5 == 0) {
                 allOutputs[i] = "fizzbuzz";
