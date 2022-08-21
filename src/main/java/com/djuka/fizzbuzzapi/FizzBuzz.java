@@ -1,11 +1,14 @@
 package com.djuka.fizzbuzzapi;
 
-import org.springframework.stereotype.Component;
-
-@Component
-public class FizzbuzzOutput {
+public class FizzBuzz {
 
     private String output;
+
+    public FizzBuzz() {
+    }
+    public FizzBuzz(String output) {
+        this.output = output;
+    }
 
     public String getOutput() {
         return output;

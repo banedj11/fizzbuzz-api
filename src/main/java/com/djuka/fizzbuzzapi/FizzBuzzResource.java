@@ -1,19 +1,18 @@
 package com.djuka.fizzbuzzapi;
 
+import com.djuka.fizzbuzzapi.error.InvalidParameterException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 
 @RestController
-@Validated
 public class FizzBuzzResource {
 
+    private static final String ONLY_NUMBER_REGEX = "[0-9]+";
     private final FizzbuzzService fizzbuzzService;
 
     public FizzBuzzResource(FizzbuzzService fizzbuzzService) {
@@ -21,14 +20,13 @@ public class FizzBuzzResource {
     }
 
     @GetMapping("/fizzbuzz")
-    public ResponseEntity fizzbuzz(@RequestParam String entry) {
+    public ResponseEntity<FizzBuzz> fizzbuzz(@RequestParam String entry) {
         if(entry == null || entry.isEmpty()) {
             return new ResponseEntity(fizzbuzzService.getAllOutputs(), HttpStatus.OK);
         }
-        if(!entry.matches("[0-9]+")) {
-            throw new RuntimeException("Entry must be a number");
+        if(!entry.matches(ONLY_NUMBER_REGEX)) {
+            throw new InvalidParameterException("Entry must be numeric");
         }
-        FizzbuzzOutput output = fizzbuzzService.getOutput(entry);
-        return new ResponseEntity<FizzbuzzOutput>(output, HttpStatus.OK);
+        return new ResponseEntity(fizzbuzzService.getOutput(entry), HttpStatus.OK);
     }
 }
