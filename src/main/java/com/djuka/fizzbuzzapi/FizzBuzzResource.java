@@ -24,7 +24,7 @@ public class FizzBuzzResource {
 
     @GetMapping("/fizzbuzz")
     public ResponseEntity<FizzBuzz> fizzbuzz(@RequestParam String entry) {
-        if(entry == null || entry.isEmpty()) {
+        if(entry.isEmpty()) {
             return new ResponseEntity(fizzbuzzService.getAllOutputs(), HttpStatus.OK);
         }
         if(!entry.matches(ONLY_NUMBER_REGEX)) {
