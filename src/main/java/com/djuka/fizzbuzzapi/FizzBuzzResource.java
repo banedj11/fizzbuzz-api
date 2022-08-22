@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class FizzBuzzResource {
 
     private static final String ONLY_NUMBER_REGEX = "[0-9]+";
-    @Autowired
+
     private final FizzbuzzService fizzbuzzService;
 
     public FizzBuzzResource(FizzbuzzService fizzbuzzService) {
@@ -30,6 +30,7 @@ public class FizzBuzzResource {
         if(!entry.matches(ONLY_NUMBER_REGEX)) {
             throw new InvalidParameterException("Entry must be numeric");
         }
-        return new ResponseEntity(fizzbuzzService.getOutput(entry), HttpStatus.OK);
+        FizzBuzz fizzBuzz = fizzbuzzService.getOutput(entry);
+        return new ResponseEntity(fizzBuzz, HttpStatus.OK);
     }
 }
